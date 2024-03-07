@@ -174,49 +174,80 @@
     </table>
 
 
-
+<!--
     <div>
         <p>constanteBajo: <span id="valorConstanteBajo"></span></p>
         <p>pendienteBajo: <span id="valorPendienteBajo"></span></p>
     </div>
+-->
+<script>
 
+// Declarar variables fuera de la función generarTabla
+let demandaBajo;
+let demandaMedio;
+let demandaAlto;
+let demandaTotal;
 
-    <script>
-        function generarTabla() {
-            calcularEcuacion();
-            // Recoger los valores del rango de precios y el incremento
-            const precioInicio = parseFloat(document.getElementById('precioInicio').value);
-            const precioFin = parseFloat(document.getElementById('precioFin').value);
-            const incremento = parseFloat(document.getElementById('incremento').value);
+// Declarar arreglos para almacenar los datos
+let precios = [];
+let demandaBajoArray = [];
+let demandaMedioArray = [];
+let demandaAltoArray = [];
+let demandaTotalArray = [];
 
-
-
-
-            // Calcular la demanda para cada precio en el rango
-            for (let precio = precioInicio; precio <= precioFin; precio += incremento) {
-                const demandaBajo = (constanteBajo * familiasBajo) + (pendienteBajo * familiasBajo) * precio;
-                const demandaMedio = (constanteMedio * familiasMedio) + (pendienteMedio * familiasMedio) * precio;
-                const demandaAlto = (constanteAlto * familiasAlto) + (pendienteAlto * familiasAlto) * precio;
-                const demandaTotal = demandaBajo + demandaMedio + demandaAlto;
-
-
-
-                // Mostrar los valores de constanteBajo y pendienteBajo
-                //   document.getElementById('valorConstanteBajo').innerText = constanteBajo.toFixed(2);
-                //document.getElementById('valorPendienteBajo').innerText = pendienteBajo.toFixed(2);
-                // Agregar una fila a la tabla para cada precio
-                const fila = document.createElement('tr');
-                fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${demandaBajo.toFixed(2)}</td><td>${demandaMedio.toFixed(2)}</td><td>${demandaAlto.toFixed(2)}</td><td>${demandaTotal.toFixed(2)}</td>`;
-                document.getElementById('tablaResultados').appendChild(fila);
-            }
+    function generarTabla() {
+        calcularEcuacion();
+        // Recoger los valores del rango de precios y el incremento
+        const precioInicio = parseFloat(document.getElementById('precioInicio').value);
+        const precioFin = parseFloat(document.getElementById('precioFin').value);
+        const incremento = parseFloat(document.getElementById('incremento').value);
 
 
 
+
+        // Calcular la demanda para cada precio en el rango
+        for (let precio = precioInicio; precio <= precioFin; precio += incremento) {
+            demandaBajo = (constanteBajo * familiasBajo) + (pendienteBajo * familiasBajo) * precio;
+            demandaMedio = (constanteMedio * familiasMedio) + (pendienteMedio * familiasMedio) * precio;
+           demandaAlto = (constanteAlto * familiasAlto) + (pendienteAlto * familiasAlto) * precio;
+            demandaTotal = demandaBajo + demandaMedio + demandaAlto;
+// Almacenar los datos en los arreglos
+precios.push(precio.toFixed(2));
+        demandaBajoArray.push(demandaBajo.toFixed(2));
+        demandaMedioArray.push(demandaMedio.toFixed(2));
+        demandaAltoArray.push(demandaAlto.toFixed(2));
+        demandaTotalArray.push(demandaTotal.toFixed(2));
+
+
+            // Mostrar los valores de constanteBajo y pendienteBajo
+            //   document.getElementById('valorConstanteBajo').innerText = constanteBajo.toFixed(2);
+            //document.getElementById('valorPendienteBajo').innerText = pendienteBajo.toFixed(2);
+            // Agregar una fila a la tabla para cada precio
+            const fila = document.createElement('tr');
+            fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${demandaBajo.toFixed(2)}</td><td>${demandaMedio.toFixed(2)}</td><td>${demandaAlto.toFixed(2)}</td><td>${demandaTotal.toFixed(2)}</td>`;
+            document.getElementById('tablaResultados').appendChild(fila);
         }
-    </script>
-    </script>
+// Llamar a la función para dibujar el gráfico con los datos
 
 
+    dibujarGrafico(precios, demandaBajoArray, demandaMedioArray,demandaAltoArray, demandaTotalArray);
+
+    }
+
+
+
+
+</script>
+</script>
+
+
+
+
+
+ <!-- Elemento canvas donde se dibujará la gráfica -->
+ <canvas id="myChart"></canvas>
+   <!-- Incluir tu archivo JavaScript que contiene la configuración de la gráfica -->
+   <script src="myChart.js"></script>
 
 
 </body>
