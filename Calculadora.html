@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="myChart.js"></script>
+
+    <title>Calculadora de Ecuaciones de Consumo</title>
+
+</head>
+
+<body>
+
+    <h1>Calculadora de Ecuaciones de Consumo</h1>
+
+    <div class="container">
+        <div class="input-container">
+            <label for="precio1Input">Ingrese el Primer Precio:</label>
+            <input type="number" id="precio1Input" step="0.1" />
+            <label for="precio2Input">Ingrese el Segundo Precio:</label>
+            <input type="number" id="precio2Input" step="0.1" />
+        </div>
+
+        <div class="table-container">
+            <table id="consumoTable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th id="precio1Header"></th>
+                        <th id="precio2Header"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BAJO</td>
+                        <td><input type="number" id="bajoInput1" placeholder="Ingrese el consumo BAJO para 0.4" /></td>
+                        <td><input type="number" id="bajoInput2" placeholder="Ingrese el consumo BAJO para 1" /></td>
+                    </tr>
+                    <tr>
+                        <td>MEDIO</td>
+                        <td><input type="number" id="medioInput1" placeholder="Ingrese el consumo MEDIO para 0.4" />
+                        </td>
+                        <td><input type="number" id="medioInput2" placeholder="Ingrese el consumo MEDIO para 1" /></td>
+                    </tr>
+                    <tr>
+                        <td>ALTO</td>
+                        <td><input type="number" id="altoInput1" placeholder="Ingrese el consumo ALTO para 0.4" /></td>
+                        <td><input type="number" id="altoInput2" placeholder="Ingrese el consumo ALTO para 1" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="familias-container">
+        <label for="familiasBajo">Número de Familias BAJAS:</label>
+        <input type="number" id="familiasBajo" />
+
+        <label for="familiasMedio">Número de Familias MEDIAS:</label>
+        <input type="number" id="familiasMedio" />
+
+        <label for="familiasAlto">Número de Familias ALTAS:</label>
+        <input type="number" id="familiasAlto" />
+    </div>
+
+    <button onclick="calcularEcuacion()">Calcular</button>
+
+    <h2>Resultados:</h2>
+    <p id="resultadoBajo"></p>
+    <p id="resultadoMedio"></p>
+    <p id="resultadoAlto"></p>
+
+    <div id="resultadosEstrato"></div>
+
+    <script>
+        window.onload = function () {
+            document.getElementById('precio1Input').addEventListener('change', function () {
+                var valor = this.value;
+                document.getElementById('bajoInput1').placeholder = 'Ingrese el consumo BAJO para ' + valor;
+                document.getElementById('medioInput1').placeholder = 'Ingrese el consumo MEDIO para ' + valor;
+                document.getElementById('altoInput1').placeholder = 'Ingrese el consumo ALTO para ' + valor;
+                document.getElementById('precio1Header').textContent = valor;
+            });
+
+            document.getElementById('precio2Input').addEventListener('change', function () {
+                var valor = this.value;
+                document.getElementById('bajoInput2').placeholder = 'Ingrese el consumo BAJO para ' + valor;
+                document.getElementById('medioInput2').placeholder = 'Ingrese el consumo MEDIO para ' + valor;
+                document.getElementById('altoInput2').placeholder = 'Ingrese el consumo ALTO para ' + valor;
+                document.getElementById('precio2Header').textContent = valor;
+            });
+        };
+        // Definir las variables fuera de la función para que estén disponibles globalmente
+        let constanteBajo, constanteMedio, constanteAlto, pendienteBajo, pendienteMedio, pendienteAlto;
+        let precio1, precio2, bajo1, bajo2, medio1, medio2, alto1, alto2;
+
+        function calcularEcuacion() {
+            // Obtener los valores ingresados por el usuario
+            const precio1 = parseFloat(document.getElementById('precio1Input').value);
+            const precio2 = parseFloat(document.getElementById('precio2Input').value);
+            const bajo1 = parseFloat(document.getElementById('bajoInput1').value);
+            const bajo2 = parseFloat(document.getElementById('bajoInput2').value);
+            const medio1 = parseFloat(document.getElementById('medioInput1').value);
+            const medio2 = parseFloat(document.getElementById('medioInput2').value);
+            const alto1 = parseFloat(document.getElementById('altoInput1').value);
+            const alto2 = parseFloat(document.getElementById('altoInput2').value);
+
+            // Calcular las pendientes y constantes de las ecuaciones
+            pendienteBajo = (bajo2 - bajo1) / (precio2 - precio1);
+            constanteBajo = bajo1 - pendienteBajo * precio1;
+
+            pendienteMedio = (medio2 - medio1) / (precio2 - precio1);
+            constanteMedio = medio1 - pendienteMedio * precio1;
+
+            pendienteAlto = (alto2 - alto1) / (precio2 - precio1);
+            constanteAlto = alto1 - pendienteAlto * precio1;
+
+            // Mostrar los resultados en la página
+            document.getElementById('resultadoBajo').innerText = `Ecuación BAJO: Qd = ${constanteBajo.toFixed(2)} - ${pendienteBajo.toFixed(2)}P`;
+            document.getElementById('resultadoMedio').innerText = `Ecuación MEDIO: Qd = ${constanteMedio.toFixed(2)} - ${pendienteMedio.toFixed(2)}P`;
+            document.getElementById('resultadoAlto').innerText = `Ecuación ALTO: Qd = ${constanteAlto.toFixed(2)} - ${pendienteAlto.toFixed(2)}P`;
+
+            // Calcular las ecuaciones de los estratos
+            familiasBajo = parseFloat(document.getElementById('familiasBajo').value);
+            familiasMedio = parseFloat(document.getElementById('familiasMedio').value);
+            familiasAlto = parseFloat(document.getElementById('familiasAlto').value);
+
+            const ecuacionEstratoBajo = `QDx1=${(constanteBajo * familiasBajo).toFixed(3)}-${(pendienteBajo * familiasBajo).toFixed(3)}Px`;
+            const ecuacionEstratoMedio = `QDx2=${(constanteMedio * familiasMedio).toFixed(3)}-${(pendienteMedio * familiasMedio).toFixed(3)}Px`;
+            const ecuacionEstratoAlto = `QDx3=${(constanteAlto * familiasAlto).toFixed(3)}-${(pendienteAlto * familiasAlto).toFixed(3)}Px`;
+            const ecuacionGeneral = `QDx3=${((constanteBajo * familiasBajo) + (constanteMedio * familiasMedio) + (constanteAlto * familiasAlto)).toFixed(3)}-
+            ${(((pendienteBajo * familiasBajo) + (pendienteMedio * familiasMedio) + (pendienteAlto * familiasAlto)).toFixed(3))}Px`;
+            // Mostrar los resultados de las ecuaciones de los estratos
+            document.getElementById('resultadosEstrato').innerHTML = `<h2>Ecuaciones del Estrato:</h2>
+            <p>${ecuacionEstratoBajo}</p>
+            <p>${ecuacionEstratoMedio}</p>
+            <p>${ecuacionEstratoAlto}</p>
+            <h2>Ecuación General:</h2>
+
+            <p>${ecuacionGeneral}</p>`;
+        }
+    </script>
+
+
+    <!-- Agregar campos de entrada para el rango de precios y el incremento -->
+    <div>
+        <label for="precioInicio">Precio de inicio:</label>
+        <input type="number" id="precioInicio" name="precioInicio">
+    </div>
+    <div>
+        <label for="precioFin">Precio final:</label>
+        <input type="number" id="precioFin" name="precioFin">
+    </div>
+    <div>
+        <label for="incremento">Incremento:</label>
+        <input type="number" id="incremento" name="incremento">
+    </div>
+    <!-- Agregar un botón para generar la tabla de demanda proyectada -->
+    <button onclick="generarTabla()">Generar tabla de demanda proyectada</button>
+
+
+    <!-- Crear la tabla para mostrar los resultados -->
+    <table id="tablaResultados">
+        <tr>
+            <th>Precio</th>
+            <th>Bajo</th>
+            <th>Medio</th>
+            <th>Alto</th>
+            <th>Demanda de mercado</th>
+        </tr>
+    </table>
+
+
+
+    <div>
+        <p>constanteBajo: <span id="valorConstanteBajo"></span></p>
+        <p>pendienteBajo: <span id="valorPendienteBajo"></span></p>
+    </div>
+
+
+    <script>
+        function generarTabla() {
+            calcularEcuacion();
+            // Recoger los valores del rango de precios y el incremento
+            const precioInicio = parseFloat(document.getElementById('precioInicio').value);
+            const precioFin = parseFloat(document.getElementById('precioFin').value);
+            const incremento = parseFloat(document.getElementById('incremento').value);
+
+
+
+
+            // Calcular la demanda para cada precio en el rango
+            for (let precio = precioInicio; precio <= precioFin; precio += incremento) {
+                const demandaBajo = (constanteBajo * familiasBajo) + (pendienteBajo * familiasBajo) * precio;
+                const demandaMedio = (constanteMedio * familiasMedio) + (pendienteMedio * familiasMedio) * precio;
+                const demandaAlto = (constanteAlto * familiasAlto) + (pendienteAlto * familiasAlto) * precio;
+                const demandaTotal = demandaBajo + demandaMedio + demandaAlto;
+
+
+
+                // Mostrar los valores de constanteBajo y pendienteBajo
+                //   document.getElementById('valorConstanteBajo').innerText = constanteBajo.toFixed(2);
+                //document.getElementById('valorPendienteBajo').innerText = pendienteBajo.toFixed(2);
+                // Agregar una fila a la tabla para cada precio
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${demandaBajo.toFixed(2)}</td><td>${demandaMedio.toFixed(2)}</td><td>${demandaAlto.toFixed(2)}</td><td>${demandaTotal.toFixed(2)}</td>`;
+                document.getElementById('tablaResultados').appendChild(fila);
+            }
+
+
+
+        }
+    </script>
+    </script>
+
+
+
+
+</body>
+
+</html>
