@@ -79,17 +79,17 @@
         window.onload = function () {
             document.getElementById('precio1Input').addEventListener('change', function () {
                 var valor = this.value;
-                document.getElementById('bajoInput1').placeholder = 'Ingrese el consumo BAJO para ' + valor;
-                document.getElementById('medioInput1').placeholder = 'Ingrese el consumo MEDIO para ' + valor;
-                document.getElementById('altoInput1').placeholder = 'Ingrese el consumo ALTO para ' + valor;
+                document.getElementById('bajoInput1').placeholder = 'Ingrese el consumo BAJO  ' + valor;
+                document.getElementById('medioInput1').placeholder = 'Ingrese el consumo MEDIO  ' + valor;
+                document.getElementById('altoInput1').placeholder = 'Ingrese el consumo ALTO  ' + valor;
                 document.getElementById('precio1Header').textContent = valor;
             });
 
             document.getElementById('precio2Input').addEventListener('change', function () {
                 var valor = this.value;
-                document.getElementById('bajoInput2').placeholder = 'Ingrese el consumo BAJO para ' + valor;
-                document.getElementById('medioInput2').placeholder = 'Ingrese el consumo MEDIO para ' + valor;
-                document.getElementById('altoInput2').placeholder = 'Ingrese el consumo ALTO para ' + valor;
+                document.getElementById('bajoInput2').placeholder = 'Ingrese el consumo BAJO  ' + valor;
+                document.getElementById('medioInput2').placeholder = 'Ingrese el consumo MEDIO  ' + valor;
+                document.getElementById('altoInput2').placeholder = 'Ingrese el consumo ALTO ' + valor;
                 document.getElementById('precio2Header').textContent = valor;
             });
         };
@@ -159,7 +159,48 @@
         <input type="number" id="incremento" name="incremento">
     </div>
     <!-- Agregar un botón para generar la tabla de demanda proyectada -->
-    <button onclick="generarTabla()">Generar tabla de demanda proyectada</button>
+
+
+    <button
+        onclick="generarTablaEcuaciones();  generarTablaPorcentual();generarTabla(); generarTablaMultiplicada();generarTablaPorcentualMultiplicada(); ">Generar
+        tablas de demanda proyectada y ecuaciones</button>
+
+
+
+
+        
+    <!-- Crear la tabla para mostrar los resultados de las ecuaciones -->
+
+    <!-- Agregar un título a la tabla de ecuaciones -->
+    <br>
+    <br>
+    <h3>Tabla de Ecuaciones individuales</h3>
+
+    <table id="tablaEcuaciones">
+        <tr>
+            <th>Precio</th>
+            <th>Ecuación BAJO: Qd</th>
+            <th>Ecuación MEDIO: Qd</th>
+            <th>Ecuación ALTO: Qd</th>
+            <th>Demanda de mercado</th>
+        </tr>
+    </table>
+    <br>
+
+    <h3>Tabla de Ecuaciones individuales %</h3>
+
+    <table id="tablaPorcentual">
+        <tr>
+            <th>Precio</th>
+            <th>Ecuación BAJO: Qd (%)</th>
+            <th>Ecuación MEDIO: Qd (%)</th>
+            <th>Ecuación ALTO: Qd (%)</th>
+            <th>Demanda de mercado</th>
+        </tr>
+    </table>
+    <br>
+
+    <h3>Tabla de Estratos</h3>
 
 
     <!-- Crear la tabla para mostrar los resultados -->
@@ -172,82 +213,230 @@
             <th>Demanda de mercado</th>
         </tr>
     </table>
+    <br>
+    <h3>Tabla de Ventas por estrato y mercado</h3>
+
+    <!-- Crear la tabla para mostrar los resultados -->
+    <table id="tablaMultiplicada">
+        <tr>
+            <th>Precio</th>
+            <th>Bajo</th>
+            <th>Medio</th>
+            <th>Alto</th>
+            <th>Demanda de mercado</th>
+        </tr>
+    </table>
+    <br>
+    <h3>Tabla de Ventas por estrato y mercado %</h3>
+    <!-- Crear la tabla para mostrar los resultados -->
+    <table id="tablaPorcentualMultiplicada">
+        <tr>
+            <th>Precio</th>
+            <th>Bajo</th>
+            <th>Medio</th>
+            <th>Alto</th>
+            <th>Demanda de mercado</th>
+        </tr>
+    </table>
+    <br>
+    <br>
 
 
-<!--
+
+    <!--
     <div>
         <p>constanteBajo: <span id="valorConstanteBajo"></span></p>
         <p>pendienteBajo: <span id="valorPendienteBajo"></span></p>
     </div>
 -->
-<script>
+    <script>
 
-// Declarar variables fuera de la función generarTabla
-let demandaBajo;
-let demandaMedio;
-let demandaAlto;
-let demandaTotal;
+        // Declarar variables fuera de la función generarTabla
+        let demandaBajo;
+        let demandaMedio;
+        let demandaAlto;
+        let demandaTotal;
 
-// Declarar arreglos para almacenar los datos
-let precios = [];
-let demandaBajoArray = [];
-let demandaMedioArray = [];
-let demandaAltoArray = [];
-let demandaTotalArray = [];
+        // Declarar arreglos para almacenar los datos
+        let precios = [];
+        let demandaBajoArray = [];
+        let demandaMedioArray = [];
+        let demandaAltoArray = [];
+        let demandaTotalArray = [];
 
-    function generarTabla() {
-        calcularEcuacion();
-        // Recoger los valores del rango de precios y el incremento
-        const precioInicio = parseFloat(document.getElementById('precioInicio').value);
-        const precioFin = parseFloat(document.getElementById('precioFin').value);
-        const incremento = parseFloat(document.getElementById('incremento').value);
-
-
-
-
-        // Calcular la demanda para cada precio en el rango
-        for (let precio = precioInicio; precio <= precioFin; precio += incremento) {
-            demandaBajo = (constanteBajo * familiasBajo) + (pendienteBajo * familiasBajo) * precio;
-            demandaMedio = (constanteMedio * familiasMedio) + (pendienteMedio * familiasMedio) * precio;
-           demandaAlto = (constanteAlto * familiasAlto) + (pendienteAlto * familiasAlto) * precio;
-            demandaTotal = demandaBajo + demandaMedio + demandaAlto;
-// Almacenar los datos en los arreglos
-precios.push(precio.toFixed(2));
-        demandaBajoArray.push(demandaBajo.toFixed(2));
-        demandaMedioArray.push(demandaMedio.toFixed(2));
-        demandaAltoArray.push(demandaAlto.toFixed(2));
-        demandaTotalArray.push(demandaTotal.toFixed(2));
-
-
-            // Mostrar los valores de constanteBajo y pendienteBajo
-            //   document.getElementById('valorConstanteBajo').innerText = constanteBajo.toFixed(2);
-            //document.getElementById('valorPendienteBajo').innerText = pendienteBajo.toFixed(2);
-            // Agregar una fila a la tabla para cada precio
-            const fila = document.createElement('tr');
-            fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${demandaBajo.toFixed(2)}</td><td>${demandaMedio.toFixed(2)}</td><td>${demandaAlto.toFixed(2)}</td><td>${demandaTotal.toFixed(2)}</td>`;
-            document.getElementById('tablaResultados').appendChild(fila);
+        function limpiarTabla(idTabla) {
+            const tabla = document.getElementById(idTabla);
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
         }
-// Llamar a la función para dibujar el gráfico con los datos
 
 
-    dibujarGrafico(precios, demandaBajoArray, demandaMedioArray,demandaAltoArray, demandaTotalArray);
+        function generarTabla() {
+            // Llamar a la función para limpiar la tabla antes de agregar nuevas filas
+           // Llamar a la función para limpiar todas las tablas antes de agregar nuevas filas
+           limpiarTabla('tablaResultados');
+  //  limpiarTablas(['tablaResultados', 'tablaMultiplicada', 'tablaEcuaciones', 'tablaPorcentual', 'tablaPorcentualMultiplicada']);
 
-    }
+            calcularEcuacion();
+            // Recoger los valores del rango de precios y el incremento
+            const precioInicio = parseFloat(document.getElementById('precioInicio').value);
+            const precioFin = parseFloat(document.getElementById('precioFin').value);
+            const incremento = parseFloat(document.getElementById('incremento').value);
+
+            // Calcular la demanda para cada precio en el rango
+            for (let precio = precioInicio; precio <= precioFin; precio += incremento) {
+                demandaBajo = (constanteBajo * familiasBajo) + (pendienteBajo * familiasBajo) * precio;
+                demandaMedio = (constanteMedio * familiasMedio) + (pendienteMedio * familiasMedio) * precio;
+                demandaAlto = (constanteAlto * familiasAlto) + (pendienteAlto * familiasAlto) * precio;
+                demandaTotal = demandaBajo + demandaMedio + demandaAlto;
+                // Almacenar los datos en los arreglos
+                precios.push(precio.toFixed(2));
+                demandaBajoArray.push(demandaBajo.toFixed(2));
+                demandaMedioArray.push(demandaMedio.toFixed(2));
+                demandaAltoArray.push(demandaAlto.toFixed(2));
+                demandaTotalArray.push(demandaTotal.toFixed(2));
+
+
+                // Mostrar los valores de constanteBajo y pendienteBajo
+                //   document.getElementById('valorConstanteBajo').innerText = constanteBajo.toFixed(2);
+                //document.getElementById('valorPendienteBajo').innerText = pendienteBajo.toFixed(2);
+                // Agregar una fila a la tabla para cada precio
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${demandaBajo.toFixed(2)}</td><td>${demandaMedio.toFixed(2)}</td><td>${demandaAlto.toFixed(2)}</td><td>${demandaTotal.toFixed(2)}</td>`;
+                document.getElementById('tablaResultados').appendChild(fila);
+            }
+            // Llamar a la función para dibujar el gráfico con los datos
+
+            dibujarGrafico(precios, demandaBajoArray, demandaMedioArray, demandaAltoArray, demandaTotalArray);
+        }
+
+        function generarTablaPorcentual() {
+            limpiarTabla('tablaPorcentual');
+           // Recoger los valores del rango de precios y el incremento
+           const precioInicio = parseFloat(document.getElementById('precioInicio').value);
+           const precioFin = parseFloat(document.getElementById('precioFin').value);
+           const incremento = parseFloat(document.getElementById('incremento').value);
+        
+           // Calcular los valores en porcentaje para cada precio en el rango
+           for (let precio = precioInicio; precio <= precioFin; precio += incremento) {
+               const ecuacionBajo = constanteBajo + pendienteBajo * precio;
+               const ecuacionMedio = constanteMedio + pendienteMedio * precio;
+               const ecuacionAlto = constanteAlto + pendienteAlto * precio;
+               const ecuaciontotal = ecuacionBajo + ecuacionMedio + ecuacionAlto;
+
+               const porcentajeBajo = (ecuacionBajo / ecuaciontotal) * 100;
+               const porcentajeMedio = (ecuacionMedio / ecuaciontotal) * 100;
+               const porcentajeAlto = (ecuacionAlto / ecuaciontotal) * 100;
+              
+               // Agregar una fila a la tabla para cada precio
+               const fila = document.createElement('tr');
+               fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${porcentajeBajo.toFixed(2)}%</td><td>${porcentajeMedio.toFixed(2)}%</td><td>${porcentajeAlto.toFixed(2)}%</td><td>100%</td>`;
+               document.getElementById('tablaPorcentual').appendChild(fila);
+             
+           }
+          
+       }
+
+       
+       function generarTablaPorcentualMultiplicada() {
+           
+           limpiarTabla('tablaPorcentualMultiplicada');
+           const tablaMultiplicada = document.getElementById('tablaMultiplicada');
+           for (let i = 1; i < tablaMultiplicada.rows.length; i++) {
+               const celdas = tablaMultiplicada.rows[i].cells;
+
+               const precio = parseFloat(celdas[0].innerText);
+               const productoBajo = parseFloat(celdas[1].innerText);
+               const productoMedio = parseFloat(celdas[2].innerText);
+               const productoAlto = parseFloat(celdas[3].innerText);
+               const productoTotal = parseFloat(celdas[4].innerText);
+
+               const porcentajeBajo = (productoBajo / productoTotal) * 100;
+               const porcentajeMedio = (productoMedio / productoTotal) * 100;
+               const porcentajeAlto = (productoAlto / productoTotal) * 100;
+            
+               const fila = document.createElement('tr');
+               fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${porcentajeBajo.toFixed(2)}%</td><td>${porcentajeMedio.toFixed(2)}%</td><td>${porcentajeAlto.toFixed(2)}%</td><td>100%</td>`;
+               document.getElementById('tablaPorcentualMultiplicada').appendChild(fila);
+            
+           }
+         
+       }
 
 
 
 
-</script>
-</script>
+
+        function generarTablaMultiplicada() {
+            limpiarTabla('tablaMultiplicada');
+            
+
+            const tablaResultados = document.getElementById('tablaResultados');
+            for (let i = 1; i < tablaResultados.rows.length; i++) {
+                const celdas = tablaResultados.rows[i].cells;
+
+                const precio = parseFloat(celdas[0].innerText);
+                const demandaBajo = parseFloat(celdas[1].innerText);
+                const demandaMedio = parseFloat(celdas[2].innerText);
+                const demandaAlto = parseFloat(celdas[3].innerText);
+                const demandaTotal = parseFloat(celdas[4].innerText);
+
+                const productoBajo = precio * demandaBajo;
+                const productoMedio = precio * demandaMedio;
+                const productoAlto = precio * demandaAlto;
+                const productoTotal = precio * demandaTotal;
+
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${productoBajo.toFixed(2)}</td><td>${productoMedio.toFixed(2)}</td><td>${productoAlto.toFixed(2)}</td><td>${productoTotal.toFixed(2)}</td>`;
+                document.getElementById('tablaMultiplicada').appendChild(fila);
+            }
+        }
+
+        function generarTablaEcuaciones() {
+            // Llamar a la función para limpiar la tabla antes de agregar nuevas filas
+            limpiarTabla('tablaEcuaciones');
+            // Recoger los valores del rango de precios y el incremento
+            const precioInicio = parseFloat(document.getElementById('precioInicio').value);
+            const precioFin = parseFloat(document.getElementById('precioFin').value);
+            const incremento = parseFloat(document.getElementById('incremento').value);
+
+            // Calcular los valores de las ecuaciones para cada precio en el rango
+            for (let precio = precioInicio; precio <= precioFin; precio += incremento) {
+                const ecuacionBajo = constanteBajo + pendienteBajo * precio;
+                const ecuacionMedio = constanteMedio + pendienteMedio * precio;
+                const ecuacionAlto = constanteAlto + pendienteAlto * precio;
+                const ecuaciontotal = ecuacionBajo + ecuacionMedio + ecuacionAlto;
+
+                // Agregar una fila a la tabla para cada precio
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<td>${precio.toFixed(2)}</td><td>${ecuacionBajo.toFixed(2)}</td><td>${ecuacionMedio.toFixed(2)}</td><td>${ecuacionAlto.toFixed(2)}</td><td>${ecuaciontotal.toFixed(2)}</td>`;
+                document.getElementById('tablaEcuaciones').appendChild(fila);
+            }
+        }
+
+
+     
+
+      
+
+      
+
+   
+
+
+    </script>
+    </script>
 
 
 
 
 
- <!-- Elemento canvas donde se dibujará la gráfica -->
- <canvas id="myChart"></canvas>
-   <!-- Incluir tu archivo JavaScript que contiene la configuración de la gráfica -->
-   <script src="myChart.js"></script>
+
+    <!-- Elemento canvas donde se dibujará la gráfica -->
+    <canvas id="myChart"></canvas>
+    <!-- Incluir tu archivo JavaScript que contiene la configuración de la gráfica -->
+    <script src="myChart.js"></script>
 
 
 </body>
