@@ -1,0 +1,93 @@
+
+/* Header Styles */
+header {
+    background: linear-gradient(135deg, #4a90e2, #904e95);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+header nav {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header ul li {
+    display: inline;
+}
+
+header ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background 0.3s, color 0.3s;
+    border-radius: 5px;
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: slideIn 1s ease-out forwards;
+    animation-delay: 0.5s; /* Delay para que la animación del texto del header termine primero */
+}
+
+header ul li a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: #000;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-top: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header nav {
+        position: static;
+        margin-top: 10px;
+    }
+
+    header ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+}

@@ -67,3 +67,40 @@ p {
     color: #555;
     margin: 10px 0;
 }
+
+
+.Informacion {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+}
+
+
+.instructions {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Alineación a la izquierda */
+}
+.instructions li {
+    margin-bottom: 10px;
+}
+.instructions li:last-child {
+    margin-bottom: 0;
+}
+.instructions strong {
+    color: #007bff;
+}
+
+#Instruc {
+    margin: 10px; /* Margen en todos los lados */
+    padding: 10px; /* Relleno en todos los lados */
+    margin-bottom: 50px;
+    background-color: #f2f2f2; /* Color de fondo */
+
+
+}

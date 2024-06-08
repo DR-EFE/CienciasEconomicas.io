@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+
 <html lang="es">
 
 <head>
@@ -7,15 +9,152 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="myChart.js"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style-Externo.css">
+    <link rel="stylesheet" href="Style-Header.css">
     <title>Calculadora de Ecuaciones de Consumo</title>
 
 </head>
 
-<body>
+
+
+
+   <header>
+
+    <nav>
+        <ul>
+            <li><a href="#oferta">Oferta</a></li>
+            <li><a href="#demanda">Demanda</a></li>
+            <li><a href="#Instruc">Instrucciones</a></li>
+        </ul>
+    </nav>
+    <h1>Oferta, Demanda y Equilibrio</h1>
+   </header>
+
+<main>
+
+    <section >
+        <div class ="Informacion">
+        
+        <p>
+            Esta página web proporciona una Calculadora de Ecuaciones de Consumo que te permite analizar y proyectar la demanda de mercado en función de diferentes estratos de precios y consumos. Puedes personalizar los valores y obtener resultados detallados, así como visualizar la proyección de la demanda en un gráfico.
+            
+        </p>
+        
+        </div>
+    </section>
+
+    <section id="oferta">
+        <h2>Oferta</h2>
+        <div class="content">
+            <div class="card">
+                <p class="card-title">Definición</p>
+                <p class="small-desc">
+                    La oferta se refiere a la cantidad de bienes o servicios que los productores están dispuestos a vender a diferentes precios.
+                </p>
+                <div class="go-corner">
+                    <div class="go-arrow">→</div>
+                </div>
+            </div>
+            
+            <div class="law">
+                <h3>Ley de la Oferta</h3>
+                <p style="text-align: justify;">
+                    La Ley de la Oferta es un principio económico que establece que, manteniendo todo lo demás constante, la cantidad ofrecida de un bien aumenta cuando el precio de ese bien aumenta. En otras palabras, los productores están dispuestos a ofrecer más productos a medida que el precio aumenta, ya que esto les proporciona mayores ingresos.
+                    Esta relación directa entre el precio y la cantidad ofrecida se puede representar gráficamente con la curva de oferta, que generalmente es una línea ascendente. La pendiente de esta línea refleja la rapidez con la que la oferta responde a los cambios de precio, un concepto conocido como elasticidad de la oferta.
+                    Es importante tener en cuenta que la Ley de la Oferta se mantiene constante "ceteris paribus" o "todas las demás cosas iguales". Esto significa que asume que todos los demás factores que podrían afectar la oferta de un bien (como los costos de producción, la tecnología, las expectativas de los productores, etc.) se mantienen constantes. Si estos otros factores cambian, la curva de oferta podría desplazarse, lo que significa que la cantidad ofrecida cambiaría incluso si el precio se mantiene constante.
+                </p>
+            </div>
+        </div>
+        <canvas id="grafico-oferta"></canvas>
+    </section>
+    
+    <section id="demanda">
+        <h2>Demanda</h2>
+        <div class="content">
+            <div class="card">
+                <p class="card-title">Definición</p>
+                <p class="small-desc">
+                    La demanda de mercado es el nivel de bienes y 
+                        servicios que los actores económicos, como las familias, empresas 
+                        y el gobierno, están dispuestos y pueden adquirir 
+                        a un precio determinado.</p>
+                <div class="go-corner">
+                    <div class="go-arrow">→</div>
+                </div>
+            </div>
+            
+            <div class="law">
+                <h3>Ley de la demanda</h3>
+                <p style="text-align: justify;">
+                    La Ley de la demanda es una relación negativa o inversa entre el precio de un bien y la cantidad demandada de dicho bien. Cuando el precio de un bien aumenta, los consumidores están cada vez menos dispuestos a pagar ese mayor precio por ese determinado bien, lo que genera que la demanda del mismo decaiga.
+
+Y sucede completamente lo contrario cuando el precio de ese bien disminuye. En este caso, ante un precio menor, los demandantes están más dispuestos a consumir ese determinado bien lo que hace que la cantidad demandada se incremente.
+                </p>
+            </div>
+        </div>
+        <canvas id="grafico-oferta"></canvas>
+    </section>
+
+  
+
+
+
+
+
+
+
+
 
     <h1>Calculadora de Ecuaciones de Consumo</h1>
 
+
+
+
+    <section id="Instruc">
+    <h2>Instrucciones de Uso</h2>
+    <div class="instructions">
+        <ol>
+            <li>
+                <strong>Configuración de Ecuaciones:</strong>
+                <ul>
+                    <li>Ingresa los valores en los campos correspondientes para los precios y consumos bajo, medio y alto.</li>
+                    <li>Puedes ajustar los precios y observar cómo afectan a las ecuaciones de consumo.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Número de Familias:</strong>
+                <ul>
+                    <li>Indica el número de familias para cada estrato de consumo (bajo, medio, alto).</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Cálculo de Ecuaciones:</strong>
+                <ul>
+                    <li>Haz clic en el botón "Calcular" para obtener las ecuaciones de consumo para cada estrato y una ecuación general.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Proyección de Demanda:</strong>
+                <ul>
+                    <li>Ingresa el rango de precios y el incremento deseado.</li>
+                    <li>Haz clic en "Generar tabla de demanda proyectada" para ver la proyección de la demanda en una tabla.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Resultados Gráficos:</strong>
+                <ul>
+                    <li>Observa la tabla de resultados y explora cómo cambia la demanda para diferentes precios.</li>
+                    <li>Se incluye un gráfico visualizando la proyección de la demanda.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+</section>
+
+    
     <div class="container">
         <div class="input-container">
             <label for="precio1Input">Ingrese el Primer Precio:</label>
@@ -436,9 +575,14 @@
     <!-- Elemento canvas donde se dibujará la gráfica -->
     <canvas id="myChart"></canvas>
     <!-- Incluir tu archivo JavaScript que contiene la configuración de la gráfica -->
-    <script src="myChart.js"></script>
+   
 
+</main>
+<script src="myChart.js"></script>
 
+<footer>
+    <p>&copy; 2024 Oferta, Demanda y Equilibrio</p>
+</footer>
 </body>
 
 </html>
