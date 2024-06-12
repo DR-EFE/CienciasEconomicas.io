@@ -1,31 +1,37 @@
-#oferta .content {
+/* Estilos generales */
+.card-container {
     display: flex; /* Utiliza Flexbox para alinear los elementos horizontalmente */
     justify-content: space-between; /* Espacio entre los elementos */
     align-items: flex-start; /* Alineación superior */
-
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en varias líneas si es necesario */
 }
-
-#demanda .content {
+#demanda .card-container {
     display: flex; /* Utiliza Flexbox para alinear los elementos horizontalmente */
     justify-content: space-between; /* Espacio entre los elementos */
     align-items: flex-start; /* Alineación superior */
     flex-direction: row-reverse; /* Cambia el orden de los elementos */
 }
 
-
-
-
-#oferta .card, #demanda .card {
+.card {
     flex: 0 0 300px; /* Fija la tarjeta a un ancho de 300px */
-    max-height: 320px;
+    max-width: 300px;
+    margin: 12px; /* Añade margen entre las tarjetas */
+    position: relative;
+    background-color: #f2f8f9;
+    border-radius: 10px;
+    padding: 2em 1.2em;
+    text-decoration: none;
+    z-index: 0;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #f4bf37, #e2bc6f);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-#oferta .law, #demanda .law {
+.law {
     flex: 1; /* El texto ocupa el espacio restante */
     padding-left: 20px; /* Espacio entre la tarjeta y el texto */
 }
 
-/* Estilo de la tarjeta */
 .card-title {
     color: #262626;
     font-size: 1.5em;
@@ -61,20 +67,6 @@
     font-family: courier, sans-serif;
 }
 
-.card {
-    position: relative;
-    background-color: #f2f8f9;
-    border-radius: 10px;
-    padding: 2em 1.2em;
-    margin: 12px;
-    text-decoration: none;
-    z-index: 0;
-    overflow: hidden;
-    background: linear-gradient(to bottom, #f4bf37, #e2bc6f);
-    font-family: Arial, Helvetica, sans-serif;
-    max-width: 300px;
-}
-
 .card:before {
     content: '';
     position: absolute;
@@ -103,3 +95,25 @@
     transition: all 0.5s ease-out;
     color: #ffffff;
 }
+
+@media (max-width: 600px) {
+    .card-container {
+        flex-direction: column; /* Coloca los elementos en una columna en pantallas pequeñas */
+        align-items: center; /* Centra los elementos */
+    }
+
+    .card, .law {
+        flex: 1 1 100%; /* Los elementos ocupan todo el ancho disponible */
+        max-width: 100%; /* Asegura que los elementos ocupen todo el ancho disponible */
+        padding: 10px; /* Ajusta el relleno para pantallas más pequeñas */
+        margin: 8px 0; /* Ajusta el margen para pantallas más pequeñas */
+    }
+
+    .law {
+        padding-left: 0; /* Elimina el espacio adicional en pantallas pequeñas */
+    }
+}
+
+
+
+
