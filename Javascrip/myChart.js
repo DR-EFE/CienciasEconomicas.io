@@ -42,3 +42,22 @@ function dibujarGrafico(precios, demandaBajoArray, demandaMedioArray,demandaAlto
         }
     });
 }
+
+
+
+
+function limpiarTablas() {
+    // Obtén todas las tablas en la página
+    var tablas = document.getElementsByTagName('table');
+
+    // Recorre todas las tablas
+    for (var i = 0; i < tablas.length; i++) {
+        var tabla = tablas[i];
+
+        // Recorre todas las filas de la tabla, empezando por la última
+        for (var j = tabla.rows.length - 1; j > 0; j--) {
+            // Elimina la fila
+            tabla.deleteRow(j);
+        }
+    }
+}

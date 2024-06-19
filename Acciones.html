@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferta y Demanda del Mercado</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/Css/Style-Externo.css">
+    <link rel="stylesheet" href="/Css/style.css">
+</head>
+<body>
+
+    <a href="Index.html">
+        <button class="button">
+            <div class="button-box">
+              <span class="button-elem">
+                <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+                  ></path>
+                </svg>
+              </span>
+              <span class="button-elem">
+                <svg viewBox="0 0 46 40">
+                  <path
+                    d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+                  ></path>
+                </svg>
+              </span>
+            </div>
+            
+          </button>
+        </a>
+
+
+
+    <h1>Datos de Mercado en Tiempo Real</h1>
+    <p id="Datos">Esta sección de la página permite a los usuarios ingresar el símbolo de una acción (por ejemplo, AAPL para Apple Inc.) en el campo de texto y, al hacer clic en el botón "Obtener Datos", se realiza una solicitud para obtener y mostrar los datos de mercado en tiempo real de la acción especificada. Los datos obtenidos se mostrarán en el div con id "stockData".</p>
+    <input type="text" id="stockSymbol" placeholder="Ingresa el símbolo de la acción">
+    <button id="fetchData">Obtener Datos</button>
+    <div id="stockData"></div>
+    <canvas id="stockChart" width="400" height="200"></canvas>
+
+    <script src="/Javascrip/Api.js"></script>
+</body>
+</html>
