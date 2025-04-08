@@ -7,37 +7,88 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctxEquilibrio = document.getElementById('grafico-equilibrio').getContext('2d');
     const ctxEjemplos = document.getElementById('grafico-ejemplos').getContext('2d');
 
-    // Inicializar el gráfico de oferta
     new Chart(ctxOferta, {
         type: 'line',
         data: {
-            labels: [0, 10, 20, 30, 40, 50],
+            labels: [0, 10, 20, 30, 40, 50], // Cantidad
             datasets: [{
-                label: 'Oferta',
-                data: [0, 5, 10, 15, 20, 25],
+                label: 'Curva de Oferta',
+                data: [0, 5, 10, 15, 20, 25], // Precio
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
-                fill: false
+                fill: false,
+                pointRadius: 10, // Eliminar puntos
+                pointHoverRadius: 10, // Eliminar puntos en hover
             }]
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        usePointStyle: true,
+                    }
+                },
+                annotation: {
+                    annotations: {
+                        arrow: {
+                            type: 'line',
+                            xMin: 10,
+                            xMax: 30,
+                            yMin: 5,
+                            yMax: 15,
+                            borderColor: 'rgba(255, 99, 132, 0.8)',
+                            borderWidth: 2,
+                            label: {
+                                content: 'Dirección de la oferta',
+                                enabled: true,
+                                position: 'start',
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 0.8)',
+                                borderWidth: 1
+                            },
+                            arrowHeads: {
+                                start: {
+                                    enabled: false
+                                },
+                                end: {
+                                    enabled: true,
+                                    size: 100 // Tamaño de la flecha
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             scales: {
                 x: {
                     title: {
                         display: true,
-                        text: 'Cantidad'
+                        text: 'Cantidad',
+                        color: '#000',
+                        font: {
+                            size: 14,
+                            weight: 'bold',
+                        }
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Precio'
+                        text: 'Precio',
+                        color: '#000',
+                        font: {
+                            size: 14,
+                            weight: 'bold',
+                        }
                     }
                 }
             }
         }
     });
+
+
 
     // Inicializar el gráfico de demanda
     new Chart(ctxDemanda, {
